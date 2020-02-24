@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  constructor(protected router: Router) {
 
-  constructor() { }
+  }
 
-  ngOnInit() {
+  public ngOnInit() {
+  }
+
+  ulogujSe() {
+    this.router.navigateByUrl('/login');
+  }
+
+  registrujSe() {
+    this.router.navigateByUrl('/register');
   }
 
 }

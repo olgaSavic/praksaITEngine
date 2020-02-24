@@ -27,16 +27,19 @@ import { AgmCoreModule } from '@agm/core';
 import {MatCheckboxModule, MatDatepickerModule, MatGridListModule} from '@angular/material';
 import {MatTableModule} from '@angular/material';
 
-import {AuthGuard} from "./guards/AuthGuard";
-import {RandomGuard} from "./guards/RandomGuard";
-
 import { HomepageComponent } from './homepage/homepage.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 
-    HomepageComponent
+    HomepageComponent,
+
+    RegisterComponent,
+
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -67,8 +70,6 @@ import { HomepageComponent } from './homepage/homepage.component';
   ],
   providers: [
 
-    AuthGuard,
-    RandomGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   entryComponents: [],
