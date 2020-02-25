@@ -2,6 +2,7 @@
 
   <form [formGroup]="form">
     <div class="form-group">
+      <h1>Login</h1>
 
       <label style="margin-top: 20px">Email:</label>
       <input name="email" class="form-control margin" [formControl]="email">
@@ -20,6 +21,9 @@
               [disabled]="!form.valid">
         Submit
       </button>
+      <div class="container signin">
+        <p> New to this site? <a href="/register">Register</a>.</p>
+      </div>
     </div>
   </form>
 </div>

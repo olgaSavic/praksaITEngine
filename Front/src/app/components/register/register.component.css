@@ -1,19 +1,14 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #17a2b8;
-  height: 230vh;
+* {box-sizing: border-box}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
 }
-#login .container #login-row #login-column #login-box {
-  margin-top: 120px;
-  max-width: 600px;
-  height: 950px;
-  border: 1px solid #9C9C9C;
-  background-color: #EAEAEA;
+
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
 }
-#login .container #login-row #login-column #login-box #login-form {
-  padding: 20px;
-}
-#login .container #login-row #login-column #login-box #login-form #register-link {
-  margin-top: -85px;
-}
+

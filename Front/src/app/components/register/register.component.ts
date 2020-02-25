@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Router} from "@angular/router";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as $ from 'jQuery';
 import {HttpClient} from "@angular/common/http";
 import {UserModel} from "../../model/user.model";
@@ -13,59 +13,50 @@ import {UserService} from "../../service/user.service";
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm: FormGroup;
+  public form: FormGroup;
+
+  public firstName: AbstractControl;
+  public lastName: AbstractControl;
+  public email: AbstractControl;
+  public pass: AbstractControl;
 
   korisnik: UserModel = new UserModel();
 
-  poruka = '';
+  constructor(private http: HttpClient, public fb: FormBuilder,
+              private route: ActivatedRoute,
+              private userService: UserService,
+              private router: Router) {
+    this.form = this.fb.group({
+      'firstName': ['', Validators.compose([Validators.required])],
+      'lastName': ['', Validators.compose([Validators.required])],
+      'email': ['', Validators.compose([Validators.required])],
+      'pass': ['', Validators.compose([Validators.required])]
+    })
 
-  constructor(private http: HttpClient, private userService: UserService, private router: Router) {
+    this.firstName = this.form.controls['firstName'];
+    this.lastName = this.form.controls['lastName'];
+    this.email = this.form.controls['email'];
+    this.pass = this.form.controls['pass'];
   }
 
   ngOnInit() {
   }
 
-  submit() {
-    let provera : boolean = false;
+  confirmClick() {
+    this.korisnik.firstName = this.firstName.value;
+    this.korisnik.lastName = this.lastName.value;
+    this.korisnik.email = this.email.value;
+    this.korisnik.pass = this.pass.value;
 
-    if (this.korisnik.firstName == "" || this.korisnik.firstName == undefined) {
-      $("#nameValue").addClass('border-danger');
-      provera = true;
-    } else {
-      $('#nameValue').removeClass('border-danger');
-    }
-    if (this.korisnik.lastName == "" || this.korisnik.lastName == undefined) {
-      $('#surname').addClass('border-danger');
-      provera = true;
-    } else {
-      $('#surname').removeClass('border-danger');
-    }
-
-    if (this.korisnik.pass == "" || this.korisnik.pass == undefined) {
-      $('#passValue').addClass('border-danger');
-      provera = true;
-    } else {
-      $('#passValue').removeClass('border-danger');
-    }
-
-    if (this.korisnik.email == "" || this.korisnik.email == undefined) {
-      $('#email').addClass('border-danger');
-      provera = true;
-    } else {
-      $('#email').removeClass('border-danger');
-    }
-
-    if (!provera) {
-      this.userService.register(this.korisnik).subscribe(
+    this.userService.register(this.korisnik).subscribe(
         data => {
           this.router.navigateByUrl('/homepage');
         },
         error => {
-          this.poruka = 'Email already exists!';
+          alert("Email already exists!");
 
-        }
-      );
-    }
+        });
+
   }
 
 }
