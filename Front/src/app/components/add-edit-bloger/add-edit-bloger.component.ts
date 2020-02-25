@@ -20,7 +20,7 @@ export class AddEditBlogerComponent implements OnInit {
   public password: AbstractControl;
 
   naslovStranice: string;
-  public method_name = 'DODAJ';
+  public method_name = 'ADD';
 
   constructor(protected  router: Router,
               public fb: FormBuilder,

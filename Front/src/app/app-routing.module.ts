@@ -7,6 +7,7 @@ import {LoginComponent} from './components/login/login.component';
 import {AdminPageComponent} from "./components/admin-page/admin-page.component";
 import {BlogerPageComponent} from "./components/bloger-page/bloger-page.component";
 import {AddEditBlogerComponent} from "./components/add-edit-bloger/add-edit-bloger.component";
+import {AddEditBlogComponent} from "./components/add-edit-blog/add-edit-blog.component";
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent },
   {path: 'adminPage', component: AdminPageComponent },
   {path: 'blogerPage', component: BlogerPageComponent },
-  {path: 'adminPage/bloger/:mode/:id', component: AddEditBlogerComponent}
+  {path: 'adminPage/bloger/:mode/:id', component: AddEditBlogerComponent},
+  {path: 'blogerPage/blog/:mode/:id', component: AddEditBlogComponent}
 
 ];
 

@@ -38,6 +38,9 @@ import { AdminBlogersComponent } from './components/admin-blogers/admin-blogers.
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 import { AddEditBlogerComponent } from './components/add-edit-bloger/add-edit-bloger.component';
 import { AdminProfileEditComponent } from './components/admin-profile-edit/admin-profile-edit.component';
+import { BlogsComponent } from './components/blogs/blogs.component';
+import { AddEditBlogComponent } from './components/add-edit-blog/add-edit-blog.component';
+import {BlogService} from "./service/blog.service";
 
 @NgModule({
   declarations: [
@@ -59,7 +62,11 @@ import { AdminProfileEditComponent } from './components/admin-profile-edit/admin
 
     AddEditBlogerComponent,
 
-    AdminProfileEditComponent
+    AdminProfileEditComponent,
+
+    BlogsComponent,
+
+    AddEditBlogComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +98,7 @@ import { AdminProfileEditComponent } from './components/admin-profile-edit/admin
   providers: [
     UserService,
     AuthService,
+    BlogService,
 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
