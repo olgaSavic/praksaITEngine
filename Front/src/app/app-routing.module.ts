@@ -8,6 +8,7 @@ import {AdminPageComponent} from "./components/admin-page/admin-page.component";
 import {BlogerPageComponent} from "./components/bloger-page/bloger-page.component";
 import {AddEditBlogerComponent} from "./components/add-edit-bloger/add-edit-bloger.component";
 import {AddEditBlogComponent} from "./components/add-edit-blog/add-edit-blog.component";
+import {AuthGuard} from "./components/guards/AuthGuard";
 
 
 const routes: Routes = [
@@ -15,10 +16,10 @@ const routes: Routes = [
   {path: 'homepage', component: HomepageComponent },
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent },
-  {path: 'adminPage', component: AdminPageComponent },
-  {path: 'blogerPage', component: BlogerPageComponent },
-  {path: 'adminPage/bloger/:mode/:id', component: AddEditBlogerComponent},
-  {path: 'blogerPage/blog/:mode/:id', component: AddEditBlogComponent}
+  {path: 'adminPage', component: AdminPageComponent, canActivate: [AuthGuard] },
+  {path: 'blogerPage', component: BlogerPageComponent, canActivate: [AuthGuard] },
+  {path: 'adminPage/bloger/:mode/:id', component: AddEditBlogerComponent, canActivate: [AuthGuard] },
+  {path: 'blogerPage/blog/:mode/:id', component: AddEditBlogComponent, canActivate: [AuthGuard]}
 
 ];
 

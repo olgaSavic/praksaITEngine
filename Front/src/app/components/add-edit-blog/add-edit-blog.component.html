@@ -21,7 +21,7 @@
       </small>
 
       <label style="margin-top: 20px">Blog body:</label>
-      <input name="blogBody" class="form-control margin" [formControl]="blogBody">
+      <textarea name="blogBody" class="form-control" [formControl]="blogBody"></textarea>
       <small class="form-text error" *ngIf="blogBody.errors?.required && blogBody.touched" style="color: red">
         Blog body cannot be empty!
       </small>

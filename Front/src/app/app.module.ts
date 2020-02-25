@@ -41,6 +41,8 @@ import { AdminProfileEditComponent } from './components/admin-profile-edit/admin
 import { BlogsComponent } from './components/blogs/blogs.component';
 import { AddEditBlogComponent } from './components/add-edit-blog/add-edit-blog.component';
 import {BlogService} from "./service/blog.service";
+import {AuthGuard} from "./components/guards/AuthGuard";
+import {RandomGuard} from "./components/guards/RandomGuard";
 
 @NgModule({
   declarations: [
@@ -99,7 +101,8 @@ import {BlogService} from "./service/blog.service";
     UserService,
     AuthService,
     BlogService,
-
+    AuthGuard,
+    RandomGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   entryComponents: [],
