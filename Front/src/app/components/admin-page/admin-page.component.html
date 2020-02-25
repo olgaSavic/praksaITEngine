@@ -1,0 +1,21 @@
+<div class="items-wrapper__item items-wrapper__item-small items-wrapper__item--blue">
+  <igx-navbar style="font-family: 'Ink Free'" title="B L O G">
+    <button class="btn-primary" (click) = "logout()">Logout</button>
+  </igx-navbar>
+  <igx-tabs tabsType="fixed">
+
+    <igx-tabs-group icon="info" label="Blogers">
+      <app-admin-blogers></app-admin-blogers>
+    </igx-tabs-group>
+
+    <igx-tabs-group icon="person" label="Profile">
+      <app-admin-profile></app-admin-profile>
+    </igx-tabs-group>
+
+    <igx-tabs-group icon="edit" label="Edit profile">
+      <app-admin-profile-edit></app-admin-profile-edit>
+    </igx-tabs-group>
+
+  </igx-tabs>
+</div>
+

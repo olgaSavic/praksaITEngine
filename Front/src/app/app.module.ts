@@ -27,9 +27,17 @@ import { AgmCoreModule } from '@agm/core';
 import {MatCheckboxModule, MatDatepickerModule, MatGridListModule} from '@angular/material';
 import {MatTableModule} from '@angular/material';
 
-import { HomepageComponent } from './homepage/homepage.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { BlogerPageComponent } from './components/bloger-page/bloger-page.component';
+import {UserService} from "./service/user.service";
+import {AuthService} from "./service/auth.service";
+import { AdminBlogersComponent } from './components/admin-blogers/admin-blogers.component';
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { AddEditBlogerComponent } from './components/add-edit-bloger/add-edit-bloger.component';
+import { AdminProfileEditComponent } from './components/admin-profile-edit/admin-profile-edit.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +47,19 @@ import { LoginComponent } from './login/login.component';
 
     RegisterComponent,
 
-    LoginComponent
+    LoginComponent,
+
+    AdminPageComponent,
+
+    BlogerPageComponent,
+
+    AdminBlogersComponent,
+
+    AdminProfileComponent,
+
+    AddEditBlogerComponent,
+
+    AdminProfileEditComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +89,8 @@ import { LoginComponent } from './login/login.component';
     MatDatepickerModule
   ],
   providers: [
+    UserService,
+    AuthService,
 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
