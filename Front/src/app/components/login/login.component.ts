@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserModel} from "../../model/user.model";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../service/auth.service";
 import {UserService} from "../../service/user.service";
@@ -13,44 +13,40 @@ import * as $ from 'jQuery' ;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+
+  public form: FormGroup;
+
+  public email: AbstractControl;
+  public pass: AbstractControl;
 
   user : UserModel = new UserModel();
-  errorMessage : String;
 
-  poruka = '';
+  constructor(private authService : AuthService, public fb: FormBuilder,
+              private route: ActivatedRoute,
+              private http: HttpClient, private userService: UserService,
+              private router: Router) {
+    this.form = this.fb.group({
 
-  constructor(private authService : AuthService, private http: HttpClient, private userService: UserService, private router: Router) { }
+      'email': ['', Validators.compose([Validators.required])],
+      'pass': ['', Validators.compose([Validators.required])]
+    })
+
+    this.email = this.form.controls['email'];
+    this.pass = this.form.controls['pass'];
+  }
 
   ngOnInit() {
   }
 
 
-  clickLogIn(){
+  confirmClick(){
 
-    let provera : boolean = false;
-
-
-    if(this.user.email == "" || this.user.email == undefined){
-      $("#emailValue").addClass('border-danger');
-      provera = true;
-    } else {
-      $("#emailValue").removeClass('border-danger');
-    }
-
-    if(this.user.pass == "" || this.user.pass == undefined){
-      $("#passValue").addClass('border-danger');
-      provera = true;
-    } else {
-      $("#passValue").removeClass('border-danger');
-    }
-
-    if(!provera) {
+      this.user.email = this.email.value;
+      this.user.pass = this.pass.value;
       this.authService.login(this.user).subscribe(
         success => {
 
           if (!success) {
-            this.poruka = "Incorrect email or password!";
           } else {
             this.authService.getCurrentUser().subscribe(
               data => {
@@ -68,7 +64,7 @@ export class LoginComponent implements OnInit {
           }
         }
       )
-    }
+
   }
 
 
