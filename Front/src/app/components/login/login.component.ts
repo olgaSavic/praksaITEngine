@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
         success => {
 
           if (!success) {
+            alert('Email od password is not correct!');
           } else {
             this.authService.getCurrentUser().subscribe(
               data => {
