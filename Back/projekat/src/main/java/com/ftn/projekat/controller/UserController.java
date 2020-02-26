@@ -3,9 +3,12 @@ package com.ftn.projekat.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,6 +72,14 @@ public class UserController {
 		return new ResponseEntity<User>(korisnik, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PutMapping("/editUserPassword/{email}")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public ResponseEntity<User> editUserPassword( @PathVariable String email, @RequestBody UserDTO dto) throws NoSuchAlgorithmException {
+		User korisnik = userService.editUserPassword(email, dto);
+		return new ResponseEntity<User>(korisnik, HttpStatus.OK);
+	}
+	
 	
 	@PutMapping("/editCurrentUser")
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -98,7 +109,7 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/createNewUser")
 	@CrossOrigin(origins = "http://localhost:4200")
-	public ResponseEntity<User> createNewUser(@RequestBody UserDTO dto) 
+	public ResponseEntity<User> createNewUser(@RequestBody UserDTO dto) throws MailException, InterruptedException, MessagingException 
 	{
 		String povVrFunkcije = userService.createNewUser(dto);
 		if(povVrFunkcije == "ok") // ne postoji korisnik sa tim email-om 
@@ -127,12 +138,10 @@ public class UserController {
 	public ResponseEntity<User> returnUserById(@PathVariable Long idUser) throws Exception 
 	{		
 		User v = userService.returnUserById(idUser);
-		if (v == null) 
-		{
+		if (v == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		else
-		{
+		else {
 			return new ResponseEntity<>(v, HttpStatus.OK);
 		}
 

@@ -1,3 +1,4 @@
+
 insert into db_praksa.user(id, email, first_name, last_name, is_deleted, pass, role)
 	values(100, 'dragan@gmail.com', 'Dragan', 'Borkovac', false, '$2a$10$jkNiHqkZpBqH5ZabDOLla.clW9IrNlgQVhpZWIGWB96gN5My1j7cy', 'BLOGER');
 insert into db_praksa.user(id, email, first_name, last_name, is_deleted, pass, role)

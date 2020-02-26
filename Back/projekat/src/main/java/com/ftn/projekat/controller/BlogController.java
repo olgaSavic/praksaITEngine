@@ -47,16 +47,11 @@ public class BlogController {
 	@PutMapping("/editBlog/{idBlog}")
 	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<Blog> editBlog(@PathVariable Long idBlog, @RequestBody BlogDTO dto) throws Exception {
-
 		Blog b = blogService.editBlog(idBlog, dto);
-		
-		if (b == null)
-		{
+		if (b == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
-		else
-		{
+		else {
 			return new ResponseEntity<Blog>(b, HttpStatus.OK);
 		}
 		
@@ -105,7 +100,6 @@ public class BlogController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	public boolean canEditDeleteBlog(@PathVariable Long id) 
 	{
-
 		boolean mine = blogService.canEditDeleteBlog(id);
 		return mine; // mine -> TRUE ako je nasao medju blogovima moj, inace false
 	}	

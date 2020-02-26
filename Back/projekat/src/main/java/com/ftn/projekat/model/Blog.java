@@ -4,17 +4,12 @@ import javax.persistence.*;
 
 
 @Entity
-public class Blog {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class Blog extends Universal{
 	
 	private String blogTitle ;
 	private String blogBody ;
-	private boolean isDeleted = false ;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER) // odmah se ucitava i lista korisnika, za razliku od LAZY, kada se oni ucitavaju na zahtev
 	@JoinColumn(name="userId", referencedColumnName="id")
 	private User user ;
 	
@@ -23,21 +18,15 @@ public class Blog {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Blog(Long id, String blogTitle, String blogBody, boolean isDeleted) {
+	
+
+	public Blog(String blogTitle, String blogBody) {
 		super();
-		this.id = id;
 		this.blogTitle = blogTitle;
 		this.blogBody = blogBody;
-		this.isDeleted = isDeleted;
 	}
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getBlogTitle() {
 		return blogTitle;
@@ -55,13 +44,6 @@ public class Blog {
 		this.blogBody = blogBody;
 	}
 
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
 
 	public User getUser() {
 		return user;

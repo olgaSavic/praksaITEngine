@@ -1,11 +1,12 @@
 package com.ftn.projekat.service;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository userRepository ;
+	
+	@Autowired
+	EmailService emailService ;
 	
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -49,7 +53,7 @@ public class UserService {
 	}
 	
 	// admin kreira novog blogera
-	public String createNewUser(UserDTO korisnik)
+	public String createNewUser(UserDTO korisnik) throws MailException, InterruptedException, MessagingException
 	{
 		User k1 = userRepository.findOneByEmail(korisnik.getEmail());
 		
@@ -57,16 +61,29 @@ public class UserService {
 			return "greska";
 		else 
 		{
-			String tempPassword = "";
 		
-			tempPassword = encoder.encode(korisnik.getPass());
-			User k = new User(korisnik.getFirstName(), korisnik.getLastName(), korisnik.getEmail(), tempPassword);
+			User k = new User(korisnik.getFirstName(), korisnik.getLastName(), korisnik.getEmail());
 			k.setRole(UserType.BLOGER); // admin dodaje blogera
 			k.setDeleted(false);
-			
 			// cuvanje u bazu
 			userRepository.save(k);
+			
+			emailService.sendNotificaitionAsync(k);
 			return "ok";
+		}
+	}
+	
+	public User editUserPassword(String email, UserDTO dto)
+	{
+		User u = userRepository.findOneByEmail(email);
+		if (u == null) {
+			return null ;
+		}
+		else {
+			String tempPass = encoder.encode(dto.getPass());
+			u.setPass(tempPass);
+			userRepository.save(u);
+			return u ;
 		}
 	}
 	
@@ -79,8 +96,6 @@ public class UserService {
 		korisnik.setFirstName(dto.getFirstName());
 		korisnik.setLastName(dto.getLastName());
 		korisnik.setEmail(dto.getEmail());
-		String tempPass = encoder.encode(dto.getPass());
-		korisnik.setPass(tempPass);
 		
 		userRepository.save(korisnik);
 		return korisnik;
@@ -96,6 +111,8 @@ public class UserService {
 		korisnik.setLastName(dto.getLastName());
 		String tempPass = encoder.encode(dto.getPass());
 		korisnik.setPass(tempPass);
+		
+		System.out.println("Pass je: " + dto.getPass());
 		
 		userRepository.save(korisnik);
 		return korisnik;
@@ -142,7 +159,6 @@ public class UserService {
 	public User getCurrentUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User k = userRepository.findOneByEmail(principal.toString());
-		String email = k.getEmail();
 		return k;
 	}
 	

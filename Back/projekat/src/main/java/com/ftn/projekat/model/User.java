@@ -6,17 +6,12 @@ import com.ftn.projekat.enums.UserType;
 
 
 @Entity
-public class User {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class User extends Universal{
 	
 	private String firstName ;
 	private String lastName ; 
 	private String email ;
 	private String pass ;
-	private boolean isDeleted = false;
 	
 	@Enumerated(EnumType.STRING)
 	private UserType role;
@@ -35,16 +30,14 @@ public class User {
 		this.email = email;
 		this.pass = pass;
 	}
-
-
-
-	public Long getId() {
-		return id;
+	
+	public User(String firstName, String lastName, String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -78,13 +71,6 @@ public class User {
 		this.pass = pass;
 	}
 
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
 
 	public UserType getRole() {
 		return role;
