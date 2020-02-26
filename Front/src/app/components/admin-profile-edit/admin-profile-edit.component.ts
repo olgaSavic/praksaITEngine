@@ -17,6 +17,8 @@ export class AdminProfileEditComponent implements OnInit {
   public lastName: AbstractControl;
   public pass: AbstractControl;
 
+  public newPass: any ;
+
   constructor(protected router: Router,
               private userService: UserService,
               public fb: FormBuilder
@@ -36,7 +38,8 @@ export class AdminProfileEditComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(data => {
       this.form.controls['firstName'].setValue(data.firstName);
       this.form.controls['lastName'].setValue(data.lastName);
-      this.form.controls['pass'].setValue(data.pass);
+      this.form.controls['pass'].setValue('');
+      this.newPass = data.pass;
 
     });
   }
@@ -49,7 +52,8 @@ export class AdminProfileEditComponent implements OnInit {
     const admin = new UserModel();
     admin.firstName = this.firstName.value ;
     admin.lastName = this.lastName.value ;
-    admin.pass = this.pass.value ;
+    admin.pass = this.pass.value;
+
     this.userService.editCurrentUser(admin).subscribe(data => {
       this.redirectTo('/adminPage');
     });

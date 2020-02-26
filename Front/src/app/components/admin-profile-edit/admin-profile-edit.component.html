@@ -23,8 +23,8 @@
       <label class="col-lg-3 col-form-label form-control-label">Password</label>
       <div class="col-lg-9">
         <input [formControl]="pass" class="form-control" type="password">
-        <small class="form-text error" *ngIf="pass.errors?.required && pass.touched" style="color: red">
-         Password cannot be empty!
+        <small class="form-text error" *ngIf="lastName.errors?.required && lastName.touched" style="color: red">
+          Password cannot be empty!
         </small>
       </div>
     </div>

@@ -9,6 +9,7 @@ import {BlogerPageComponent} from "./components/bloger-page/bloger-page.componen
 import {AddEditBlogerComponent} from "./components/add-edit-bloger/add-edit-bloger.component";
 import {AddEditBlogComponent} from "./components/add-edit-blog/add-edit-blog.component";
 import {AuthGuard} from "./components/guards/AuthGuard";
+import {AddPasswordComponent} from "./components/add-password/add-password.component";
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'adminPage', component: AdminPageComponent, canActivate: [AuthGuard] },
   {path: 'blogerPage', component: BlogerPageComponent, canActivate: [AuthGuard] },
   {path: 'adminPage/bloger/:mode/:id', component: AddEditBlogerComponent, canActivate: [AuthGuard] },
-  {path: 'blogerPage/blog/:mode/:id', component: AddEditBlogComponent, canActivate: [AuthGuard]}
+  {path: 'blogerPage/blog/:mode/:id', component: AddEditBlogComponent, canActivate: [AuthGuard]},
+  {path: 'addPassword/:email', component: AddPasswordComponent }
 
 ];
 

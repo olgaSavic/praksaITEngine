@@ -42,6 +42,12 @@ export class UserService {
     return this.http.put(`${this.BASE_URL}/editUser/${id}`, body, {headers});
   }
 
+  editUserPassword(email:any, object: UserModel): Observable<any> {
+    const body = JSON.stringify(object);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put(`${this.BASE_URL}/editUserPassword/${email}`, body, {headers});
+  }
+
   editCurrentUser(object: UserModel): Observable<any> {
     const body = JSON.stringify(object);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});

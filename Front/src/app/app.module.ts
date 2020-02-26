@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {NgxPaginationModule} from "ngx-pagination";
 
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -43,6 +44,7 @@ import { AddEditBlogComponent } from './components/add-edit-blog/add-edit-blog.c
 import {BlogService} from "./service/blog.service";
 import {AuthGuard} from "./components/guards/AuthGuard";
 import {RandomGuard} from "./components/guards/RandomGuard";
+import { AddPasswordComponent } from './components/add-password/add-password.component';
 
 @NgModule({
   declarations: [
@@ -68,10 +70,13 @@ import {RandomGuard} from "./components/guards/RandomGuard";
 
     BlogsComponent,
 
-    AddEditBlogComponent
+    AddEditBlogComponent,
+
+    AddPasswordComponent
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
     AppRoutingModule,
     RouterModule,
     NgbModule,

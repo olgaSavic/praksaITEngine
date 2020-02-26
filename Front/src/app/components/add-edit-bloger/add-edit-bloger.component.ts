@@ -17,7 +17,6 @@ export class AddEditBlogerComponent implements OnInit {
   public firstName: AbstractControl;
   public lastName: AbstractControl;
   public email: AbstractControl;
-  public password: AbstractControl;
 
   naslovStranice: string;
   public method_name = 'ADD';
@@ -33,13 +32,11 @@ export class AddEditBlogerComponent implements OnInit {
       'firstName': ['', Validators.compose([Validators.required])],
       'lastName': ['', Validators.compose([Validators.required])],
       'email': ['', Validators.compose([Validators.required])],
-      'password': ['', Validators.compose([Validators.required])]
     })
 
     this.firstName = this.form.controls['firstName'];
     this.lastName = this.form.controls['lastName'];
     this.email = this.form.controls['email'];
-    this.password = this.form.controls['password'];
   }
 
   ngOnInit() {
@@ -55,7 +52,6 @@ export class AddEditBlogerComponent implements OnInit {
         this.form.controls['firstName'].setValue(data.firstName);
         this.form.controls['lastName'].setValue(data.lastName);
         this.form.controls['email'].setValue(data.email);
-        this.form.controls['password'].setValue(data.pass);
 
       })
     } else if (mode == 'add') {
@@ -83,7 +79,6 @@ export class AddEditBlogerComponent implements OnInit {
     bloger.firstName = this.firstName.value ;
     bloger.lastName = this.lastName.value ;
     bloger.email = this.email.value ;
-    bloger.pass = this.password.value ;
 
     this.userService.createNewUser(bloger).subscribe(data => {
       this.router.navigateByUrl('adminPage');
@@ -99,7 +94,6 @@ export class AddEditBlogerComponent implements OnInit {
     bloger.firstName = this.firstName.value ;
     bloger.lastName = this.lastName.value ;
     bloger.email = this.email.value ;
-    bloger.pass = this.password.value ;
 
     this.userService.editUser(id, bloger).subscribe(data =>
     {
