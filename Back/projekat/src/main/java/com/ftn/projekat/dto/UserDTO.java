@@ -9,6 +9,9 @@ public class UserDTO
 	private String pass ;
 	
 	private String role ;
+	
+	private String imagePath ;
+
 
 	public UserDTO() {
 		super();
@@ -63,6 +66,16 @@ public class UserDTO
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+	
+	
 	
 	
 

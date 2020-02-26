@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import * as $ from 'jQuery';
 import {HttpClient} from "@angular/common/http";
 import {UserModel} from "../../model/user.model";
 import {UserService} from "../../service/user.service";
+import {FileUploader} from "ng2-file-upload";
 
 @Component({
   selector: 'app-register',
@@ -13,6 +13,30 @@ import {UserService} from "../../service/user.service";
 })
 export class RegisterComponent implements OnInit {
 
+  @ViewChild('fileInput', null) fileInput: ElementRef;
+
+  uploader: FileUploader;
+  isDropOver: boolean;
+
+  ngOnInit(): void {
+    const headers = [{name: 'Accept', value: 'application/json'}];
+    this.uploader = new FileUploader({url: 'api/files/add', autoUpload: true, headers: headers});
+    this.uploader.onCompleteAll = () =>  {
+      alert('File uploaded');
+      this.imgUrl = this.fileInput.nativeElement.files[0].name ;
+      alert(this.imgUrl);
+      console.log(this.fileInput.nativeElement);
+    };
+  }
+
+  fileOverAnother(e: any): void {
+    this.isDropOver = e;
+  }
+
+  fileClicked() {
+    this.fileInput.nativeElement.click();
+  }
+
   public form: FormGroup;
 
   public firstName: AbstractControl;
@@ -20,7 +44,11 @@ export class RegisterComponent implements OnInit {
   public email: AbstractControl;
   public pass: AbstractControl;
 
+  public imgUrl: any ;
+
   korisnik: UserModel = new UserModel();
+
+
 
   constructor(private http: HttpClient, public fb: FormBuilder,
               private route: ActivatedRoute,
@@ -39,14 +67,12 @@ export class RegisterComponent implements OnInit {
     this.pass = this.form.controls['pass'];
   }
 
-  ngOnInit() {
-  }
-
   confirmClick() {
     this.korisnik.firstName = this.firstName.value;
     this.korisnik.lastName = this.lastName.value;
     this.korisnik.email = this.email.value;
     this.korisnik.pass = this.pass.value;
+    this.korisnik.imagePath = this.imgUrl;
 
     this.userService.register(this.korisnik).subscribe(
         data => {

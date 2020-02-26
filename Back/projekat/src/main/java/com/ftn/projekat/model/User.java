@@ -15,6 +15,9 @@ public class User extends Universal{
 	
 	@Enumerated(EnumType.STRING)
 	private UserType role;
+	
+	private String imagePath ;
+
 
 	public User() {
 		super();
@@ -79,8 +82,21 @@ public class User extends Universal{
 	public void setRole(UserType role) {
 		this.role = role;
 	}
+
+
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 	
-	// private String imagePath ;
+	
+	
 	
 	
 	

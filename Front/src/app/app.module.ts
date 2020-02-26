@@ -45,6 +45,7 @@ import {BlogService} from "./service/blog.service";
 import {AuthGuard} from "./components/guards/AuthGuard";
 import {RandomGuard} from "./components/guards/RandomGuard";
 import { AddPasswordComponent } from './components/add-password/add-password.component';
+import {FileUploadModule} from "ng2-file-upload";
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { AddPasswordComponent } from './components/add-password/add-password.com
     MatCheckboxModule,
     IgxCheckboxModule,
     IgxDatePickerModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    FileUploadModule
   ],
   providers: [
     UserService,

@@ -23,11 +23,23 @@
       </small>
 
       <label style="margin-top: 20px">Password:</label>
-      <input name="pass" type = "password" class="form-control margin" [formControl]="pass">
+      <input name="pass" type="password" class="form-control margin" [formControl]="pass">
       <small class="form-text error" *ngIf="pass.errors?.required && pass.touched" style="color: red">
         Password cannot be empty!
       </small>
 
+      <div>
+        <input #fileInput type="file" ng2FileSelect [uploader]="uploader"/>
+
+        <div class="drop-box" ng2FileDrop
+             [ngClass]="{'dragover': isDropOver}"
+             [uploader]="uploader"
+             (fileOver)="fileOverAnother($event)"
+             (click)="fileClicked()">
+          <span class="drag-in-title">Import or drag file here</span>
+          <span class="drag-over-title">Drop the file</span>
+        </div>
+      </div>
 
       <button class="btn btn-primary" style="width: 100%;margin-top: 30px" (click)="confirmClick()"
               [disabled]="!form.valid">

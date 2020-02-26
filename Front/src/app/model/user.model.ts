@@ -5,4 +5,6 @@ export class UserModel
  email : string;
  pass : string;
  role: string;
+ imagePath : string ;
+
 }

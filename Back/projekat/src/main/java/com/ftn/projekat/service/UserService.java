@@ -45,6 +45,7 @@ public class UserService {
 			User k = new User(korisnik.getFirstName(), korisnik.getLastName(), korisnik.getEmail(), tempPassword);
 			k.setRole(UserType.ADMIN); // moze se registrovati samo adnin
 			k.setDeleted(false);
+			k.setImagePath(korisnik.getImagePath());
 			
 			// cuvanje u bazu
 			userRepository.save(k);
@@ -173,4 +174,6 @@ public class UserService {
 	{
 		return userRepository.getOne(id);
 	}
+	
+	
 }
