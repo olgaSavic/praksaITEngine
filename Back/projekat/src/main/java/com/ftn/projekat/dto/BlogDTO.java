@@ -1,8 +1,13 @@
 package com.ftn.projekat.dto;
 
+import com.ftn.projekat.validators.NameTitleConstraint;
+
 public class BlogDTO {
 	
+	@NameTitleConstraint
 	private String blogTitle ;
+	
+	@NameTitleConstraint
 	private String blogBody ;
 	
 	public BlogDTO() {

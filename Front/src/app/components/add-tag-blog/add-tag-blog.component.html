@@ -1,0 +1,30 @@
+<div class="items-wrapper__item items-wrapper__item-small items-wrapper__item--blue">
+  <igx-navbar style="font-family: 'Lucida Grande'" title="B L O G ">
+    <button class="btn-primary" (click) = "logout()">Logout</button>
+  </igx-navbar>
+</div>
+
+<br>
+<div style="text-align: center">
+  <p  style="color: black;font-size:60px; font-family: 'Lucida Grande'; margin-bottom: 10%">Add new tag</p>
+</div>
+
+<div style="margin-bottom:50px;margin-right: 30%;margin-left: 30%">
+
+  <form [formGroup]="form">
+    <div class="form-group">
+
+      <label style="margin-top: 20px">Tag name:</label>
+      <input name="tagName" class="form-control margin" [formControl]="tagName">
+      <small class="form-text error" *ngIf="tagName.errors?.required && tagName.touched" style="color: red">
+        Tag cannot be empty!
+      </small>
+
+      <button class="btn btn-primary" style="width: 100%;margin-top: 30px" (click)="createTag()"
+              [disabled]="!form.valid">
+        ADD
+      </button>
+      <button class="btn btn-primary" style="width: 100% ; margin-top: 20px" (click)="exit()">Close</button>
+    </div>
+  </form>
+</div>

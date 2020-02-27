@@ -21,3 +21,14 @@ insert into db_praksa.blog(id, blog_body, blog_title, is_deleted, user_id)
 	values(200, 'Body of the second blog', 'Second Blog', false, 500);
 insert into db_praksa.blog(id, blog_body, blog_title, is_deleted, user_id)
 	values(300, 'Body of the third blog', 'Third Blog', false, 500);
+	
+insert into db_praksa.tag(id, tag_name, is_deleted)
+	values (100, 'sport', false);
+insert into db_praksa.tag(id, tag_name, is_deleted)
+	values (200, 'politika', false);
+insert into db_praksa.tag(id, tag_name, is_deleted)
+	values (300, 'film', false);
+insert into db_praksa.tag(id, tag_name, is_deleted)
+	values (400, 'muzika', false);
+	
+insert into db_praksa.blog_tag values (100, 100), (200, 200), (300, 300), (300, 400);

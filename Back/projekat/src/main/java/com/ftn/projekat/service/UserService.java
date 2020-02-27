@@ -93,6 +93,10 @@ public class UserService {
 	public User editUser(Long id, UserDTO dto) throws NoSuchAlgorithmException {
 		User korisnik = userRepository.getOne(id);
 		
+		if (korisnik == null)
+		{
+			return null ;
+		}
 		// na osnovu id-ja je nasao korisnika koga menja
 		korisnik.setFirstName(dto.getFirstName());
 		korisnik.setLastName(dto.getLastName());
@@ -106,6 +110,11 @@ public class UserService {
 	// admin/bloger menja svoj profil
 	public User editCurrentUser(Long id, UserDTO dto) throws NoSuchAlgorithmException {
 		User korisnik = userRepository.getOne(id);
+		
+		if(korisnik == null)
+		{
+			return null ;
+		}
 		
 		// na osnovu id-ja je nasao korisnika koga menja
 		korisnik.setFirstName(dto.getFirstName());

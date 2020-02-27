@@ -1,11 +1,23 @@
 package com.ftn.projekat.dto;
 
+import javax.validation.constraints.Email;
+
+import com.ftn.projekat.validators.EmailConstaint;
+import com.ftn.projekat.validators.NameTitleConstraint;
+import com.ftn.projekat.validators.PasswordConstraint;
+
 public class UserDTO 
 {
-	
+	@NameTitleConstraint
 	private String firstName ;
-	private String lastName ; 
+	
+	@NameTitleConstraint
+	private String lastName ;
+	
+	@EmailConstaint
 	private String email ;
+	
+	@PasswordConstraint
 	private String pass ;
 	
 	private String role ;

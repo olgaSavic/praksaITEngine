@@ -46,6 +46,8 @@ import {AuthGuard} from "./components/guards/AuthGuard";
 import {RandomGuard} from "./components/guards/RandomGuard";
 import { AddPasswordComponent } from './components/add-password/add-password.component';
 import {FileUploadModule} from "ng2-file-upload";
+import { AddTagBlogComponent } from './components/add-tag-blog/add-tag-blog.component';
+import {TagService} from "./service/tag.service";
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import {FileUploadModule} from "ng2-file-upload";
 
     AddEditBlogComponent,
 
-    AddPasswordComponent
+    AddPasswordComponent,
+
+    AddTagBlogComponent
   ],
   imports: [
     BrowserModule,
@@ -108,6 +112,7 @@ import {FileUploadModule} from "ng2-file-upload";
     UserService,
     AuthService,
     BlogService,
+    TagService,
     AuthGuard,
     RandomGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

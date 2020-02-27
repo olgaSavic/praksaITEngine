@@ -10,6 +10,7 @@ import {AddEditBlogerComponent} from "./components/add-edit-bloger/add-edit-blog
 import {AddEditBlogComponent} from "./components/add-edit-blog/add-edit-blog.component";
 import {AuthGuard} from "./components/guards/AuthGuard";
 import {AddPasswordComponent} from "./components/add-password/add-password.component";
+import {AddTagBlogComponent} from "./components/add-tag-blog/add-tag-blog.component";
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'blogerPage', component: BlogerPageComponent, canActivate: [AuthGuard] },
   {path: 'adminPage/bloger/:mode/:id', component: AddEditBlogerComponent, canActivate: [AuthGuard] },
   {path: 'blogerPage/blog/:mode/:id', component: AddEditBlogComponent, canActivate: [AuthGuard]},
-  {path: 'addPassword/:email', component: AddPasswordComponent }
+  {path: 'addPassword/:email', component: AddPasswordComponent },
+  {path: 'blogerPage/addTag/:id', component: AddTagBlogComponent, canActivate: [AuthGuard]}
 
 ];
 

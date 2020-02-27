@@ -4,6 +4,15 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {UserService} from "../../service/user.service";
 import {BlogService} from "../../service/blog.service";
+import {TagModel} from "../../model/tag.model";
+import {BlogModel} from "../../model/blog.model";
+import {TagService} from "../../service/tag.service";
+
+/*
+<div *ngFor="let tag of tags">
+            # <p style="font-size: 20px"> {{tag.tagName}}</p>
+          </div>
+ */
 
 @Component({
   selector: 'app-blogs',
@@ -11,26 +20,35 @@ import {BlogService} from "../../service/blog.service";
     <div style="text-align: center">
       <p  style="color: black;font-size:40px; font-weight: bolder; font-family: 'Lucida Grande'; margin-bottom: 5%">List of blogs</p>
     </div>
-
     <div>
       <button class="btn btn-outline-primary" style="width: 40%;margin-top: 20px; font-size: 1.5em;margin-bottom: 30px;" (click)="addBlog()">Add new blog</button>
     </div>
 
+    <h4>Search blogs by tags</h4>
+    <div
+      style=" margin-left: 5%; margin-right: 20%" *ngFor="let t of tagsList">
+      <a  href="blogerPage" onclick="return false;" (click)="search(t)"><b>{{t.tagName}} </b> </a>
+    </div>
     <div
       style="text-align: center; margin-left: 20%;margin-right: 20%">
     <ul>
       <li *ngFor="let blog of blogs | paginate: { itemsPerPage: 2, currentPage: p }">
         <div style="text-align: center;border-style: solid;border-width: 2px;border-color: darkgray;margin-top: 20px;">
+          <div *ngFor="let tag of blog.tags">
+            <p style="font-size: 20px ; color: dodgerblue"> <b>#{{tag.tagName}}</b></p>
+          </div>
           <p style="font-size: 20px">Blog body: <b> {{blog.blogTitle}} </b></p>
           <p style="font-size: 20px">Blog body: <b> {{blog.blogBody}} </b></p>
-
           <div style="margin-bottom: 20px">
 
+            <button
+              (click)="addTagToBlog(blog.id)"
+              style="border-radius: 12px;background-color: #1a8cff;color: white;height: 45px; width: 110px;font-size: 20px;margin-right: 20px">AddTag
+            </button>
             <button
               (click)="editBlog(blog.id)"
               style="border-radius: 12px;background-color: #1a8cff;color: white;height: 45px; width: 110px;font-size: 20px;margin-right: 20px">Edit
             </button>
-
             <button
               (click)="deleteBlog(blog.id)"
               style="border-radius: 12px;background-color: #1a8cff;height: 45px; width: 110px;color: white;font-size: 20px;margin-right: 30px">Delete
@@ -40,7 +58,6 @@ import {BlogService} from "../../service/blog.service";
       </li>
     </ul>
     </div>
-
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
     `,
   styleUrls: ['./blogs.component.css']
@@ -48,6 +65,8 @@ import {BlogService} from "../../service/blog.service";
 export class BlogsComponent implements OnInit {
 
   blogs = [];
+  tags = [];
+  tagsList = [];
   p: number = 1;
 
   myS: any ;
@@ -57,6 +76,7 @@ export class BlogsComponent implements OnInit {
               public fb: FormBuilder,
               private route: ActivatedRoute,
               private authService: AuthService,
+              private tagService: TagService,
               private blogService: BlogService) {
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -72,8 +92,13 @@ export class BlogsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tagService.getAllTags().subscribe(res => {
+      this.tagsList = res;
+    })
+
     this.blogService.getAllBlogs().subscribe(data => {
       this.blogs = data;
+
     })
   }
 
@@ -100,6 +125,28 @@ export class BlogsComponent implements OnInit {
     })
 
 
+  }
+
+  addTagToBlog(id: any) {
+    this.blogService.canEditDeleteBlog(id).subscribe(res => {
+      if (res == true) // dozvoljena je izmena, jer je njegov blog
+      {
+        this.router.navigateByUrl('blogerPage/addTag/' + id);
+      }
+      else {
+        alert("It is possible to modify only your blog!");
+      }
+
+    })
+
+
+  }
+
+  search(tag: TagModel)
+  {
+    this.blogService.searchBlogsByTag(tag).subscribe(data => {
+      this.blogs = data ;
+    })
   }
 
   deleteBlog(id: any) {

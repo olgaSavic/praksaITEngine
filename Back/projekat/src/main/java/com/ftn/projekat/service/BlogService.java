@@ -2,20 +2,29 @@ package com.ftn.projekat.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ftn.projekat.dto.BlogDTO;
+import com.ftn.projekat.dto.TagDTO;
 import com.ftn.projekat.model.Blog;
+import com.ftn.projekat.model.Tag;
 import com.ftn.projekat.model.User;
 import com.ftn.projekat.repository.BlogRepository;
+import com.ftn.projekat.repository.TagRepository;
+
+import javassist.NotFoundException;
 
 @Service
 public class BlogService {
 	
 	@Autowired
 	BlogRepository blogRepository ;
+	
+	@Autowired
+	TagRepository tagRepository ;
 	
 	@Autowired
 	UserService userService ;
@@ -35,6 +44,34 @@ public class BlogService {
 		blogRepository.save(b);
 		return b ;
 		
+	}
+	
+	public Blog addTagToBlog(Long idBlog, TagDTO dto) throws NotFoundException
+	{
+		Blog b = blogRepository.getOne(idBlog);
+		
+		if (b == null)
+		{
+			return b ;
+		}
+		
+		Tag t = new Tag();
+		t.setTagName(dto.getTagName());
+		Set<Tag> blogTags = b.getTags();
+		blogTags.add(t);
+
+		blogRepository.save(b);
+		return b ;
+		
+
+		
+	}
+	
+	public Set<Tag> returnTagsOfBlog(Long blogId)
+	{
+		Blog b = blogRepository.getOne(blogId);
+		
+		return b.getTags() ;
 	}
 	
 	// izmena postojeceg bloga
@@ -102,6 +139,24 @@ public class BlogService {
 	public Blog returnBlogById(Long id)
 	{
 		return blogRepository.getOne(id);
+	}
+	
+	public ArrayList<Blog> searchBlogsByTag(TagDTO dto)
+	{
+		List <Blog> blogs = blogRepository.findAllNotDeleted();
+		ArrayList<Blog> good = new ArrayList<Blog>();
+		
+		for (Blog b: blogs) {
+			for (Tag t: b.getTags())
+			{
+				if (t.getTagName().equals(dto.getTagName()))
+				{
+					good.add(b);
+				}
+			}
+		}
+		
+		return good ;
 	}
 	
 	

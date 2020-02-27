@@ -29,9 +29,9 @@ export class AddEditBlogerComponent implements OnInit {
 
     this.form = this.fb.group({
 
-      'firstName': ['', Validators.compose([Validators.required])],
-      'lastName': ['', Validators.compose([Validators.required])],
-      'email': ['', Validators.compose([Validators.required])],
+      'firstName': ['', Validators.compose([Validators.required,  Validators.pattern('[A-Za-z]+$')])],
+      'lastName': ['', Validators.compose([Validators.required,  Validators.pattern('[A-Za-z]+$')])],
+      'email': ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*.com$')])],
     })
 
     this.firstName = this.form.controls['firstName'];
@@ -82,7 +82,10 @@ export class AddEditBlogerComponent implements OnInit {
 
     this.userService.createNewUser(bloger).subscribe(data => {
       this.router.navigateByUrl('adminPage');
-    })
+    },
+      error => {
+        alert("Incorrect input for fields!");
+      })
   }
 
   editBloger()

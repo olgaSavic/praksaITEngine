@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BlogModel} from "../model/blog.model";
+import {TagModel} from "../model/tag.model";
 
 
 const httpOptions = {
@@ -21,6 +22,23 @@ export class BlogService {
     return this.http.get(`${this.BASE_URL}/getAllBlogs`, {headers});
   }
 
+  returnTagsOfBlog(id:any): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get(`${this.BASE_URL}/returnTagsOfBlog/${id}`, {headers});
+  }
+
+
+  addTagToBlog(id:any, object: TagModel): Observable<any> {
+    const body = JSON.stringify(object);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put(`${this.BASE_URL}/addTagToBlog/${id}`, body, {headers});
+  }
+
+  searchBlogsByTag(object: TagModel): Observable<any> {
+    const body = JSON.stringify(object);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put(`${this.BASE_URL}/searchBlogsByTag`, body, {headers});
+  }
 
   editBlog(id:any, object: BlogModel): Observable<any> {
     const body = JSON.stringify(object);

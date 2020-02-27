@@ -29,8 +29,8 @@ export class AddEditBlogComponent implements OnInit {
 
     this.form = this.fb.group({
 
-      'blogTitle': ['', Validators.compose([Validators.required])],
-      'blogBody': ['', Validators.compose([Validators.required])]
+      'blogTitle': ['', Validators.compose([Validators.required,  Validators.pattern('[A-Za-z]+$')])],
+      'blogBody': ['', Validators.compose([Validators.required,  Validators.pattern('[A-Za-z]+$')])]
     })
 
     this.blogTitle = this.form.controls['blogTitle'];
@@ -79,7 +79,10 @@ export class AddEditBlogComponent implements OnInit {
 
     this.blogService.addNewBlog(blog).subscribe(data => {
       this.router.navigateByUrl('blogerPage');
-    })
+    },
+      error => {
+        alert("Incorrect input for fields!");
+      })
   }
 
   editBlog()

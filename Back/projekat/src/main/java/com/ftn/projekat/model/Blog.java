@@ -1,5 +1,8 @@
 package com.ftn.projekat.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 
@@ -12,6 +15,13 @@ public class Blog extends Universal{
 	@ManyToOne(fetch=FetchType.EAGER) // odmah se ucitava i lista korisnika, za razliku od LAZY, kada se oni ucitavaju na zahtev
 	@JoinColumn(name="userId", referencedColumnName="id")
 	private User user ;
+	
+	@ManyToMany(cascade = {CascadeType.ALL})
+	@JoinTable(name = "Blog_Tag", 
+	joinColumns = { @JoinColumn(name = "blog_id") }, 
+	inverseJoinColumns = { @JoinColumn(name = "tag_id") }
+	  )
+	private Set<Tag> tags = new HashSet<Tag>();
 	
 	public Blog() {
 		super();
@@ -52,6 +62,21 @@ public class Blog extends Universal{
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+
+
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+	
+	
+
 	
 	
 	

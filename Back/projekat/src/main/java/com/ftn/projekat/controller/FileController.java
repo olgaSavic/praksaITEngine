@@ -8,6 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ftn.projekat.service.FileService;
 
 import java.io.IOException;
+
+@CrossOrigin(origins = {"http://localhost:4200"}, maxAge = 4800, allowCredentials = "false")
+
  
 @RestController
 @RequestMapping(value = "files")
@@ -24,7 +27,6 @@ public class FileController {
 	@ResponseStatus(HttpStatus.OK)
 	public void handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
 		fileService.storeFile(file);
-		System.out.println(file.getOriginalFilename());
 	}
 
 }

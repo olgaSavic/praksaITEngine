@@ -18,13 +18,16 @@ export class RegisterComponent implements OnInit {
   uploader: FileUploader;
   isDropOver: boolean;
 
+  public imagePath;
+  public message: string;
+
   ngOnInit(): void {
     const headers = [{name: 'Accept', value: 'application/json'}];
     this.uploader = new FileUploader({url: 'api/files/add', autoUpload: true, headers: headers});
     this.uploader.onCompleteAll = () =>  {
       alert('File uploaded');
       this.imgUrl = this.fileInput.nativeElement.files[0].name ;
-      alert(this.imgUrl);
+      this.imgUrl2 = "assets/" + this.imgUrl;
       console.log(this.fileInput.nativeElement);
     };
   }
@@ -37,6 +40,24 @@ export class RegisterComponent implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
+  preview(files) {
+    if (files.length === 0)
+      return;
+
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      //this.imgUrl = "assets/" + reader.result;
+    }
+  }
+
   public form: FormGroup;
 
   public firstName: AbstractControl;
@@ -45,19 +66,19 @@ export class RegisterComponent implements OnInit {
   public pass: AbstractControl;
 
   public imgUrl: any ;
+  public imgUrl2: any ;
+
 
   korisnik: UserModel = new UserModel();
-
-
 
   constructor(private http: HttpClient, public fb: FormBuilder,
               private route: ActivatedRoute,
               private userService: UserService,
               private router: Router) {
     this.form = this.fb.group({
-      'firstName': ['', Validators.compose([Validators.required])],
-      'lastName': ['', Validators.compose([Validators.required])],
-      'email': ['', Validators.compose([Validators.required])],
+      'firstName': ['', Validators.compose([Validators.required,  Validators.pattern('[A-Za-z]+$')])],
+      'lastName': ['', Validators.compose([Validators.required,  Validators.pattern('[A-Za-z]+$')])],
+      'email': ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*.com$')])],
       'pass': ['', Validators.compose([Validators.required])]
     })
 
@@ -79,9 +100,14 @@ export class RegisterComponent implements OnInit {
           this.router.navigateByUrl('/homepage');
         },
         error => {
-          alert("Email already exists!");
+          alert("Email already exists or incorrect input!");
 
         });
+
+  }
+
+  search()
+  {
 
   }
 
