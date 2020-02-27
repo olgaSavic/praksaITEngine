@@ -15,22 +15,22 @@
   <form [formGroup]="form">
     <div class="form-group">
 
-      <label style="margin-top: 20px">Comments:</label>
-      <input name="comment" class="form-control margin" [formControl]="comment">
-      <small class="form-text error" *ngIf="comment.errors?.required && comment.touched" style="color: red">
-        Comment cannot be empty!
+      <label style="margin-top: 20px">Choose name [it will be visible to other users]:</label>
+      <input name="name" class="form-control margin" [formControl]="name">
+      <small class="form-text error" *ngIf="name.errors?.required && name.touched" style="color: red">
+        Name cannot be empty!
       </small>
 
-      <label style="margin-top: 20px">Choose :</label>
-      <textarea name="blogBody" class="form-control" [formControl]="blogBody"></textarea>
-      <small class="form-text error" *ngIf="blogBody.errors?.required && blogBody.touched" style="color: red">
-        Blog body cannot be empty!
+      <label style="margin-top: 20px">Comment:</label>
+      <textarea name="comment" class="form-control" [formControl]="comment"></textarea>
+      <small class="form-text error" *ngIf="comment.errors?.required && comment.touched" style="color: red">
+        Comment cannot be empty!
       </small>
 
 
       <button class="btn btn-primary" style="width: 100%;margin-top: 30px" (click)="confirmClick()"
               [disabled]="!form.valid">
-        {{method_name}}
+        ADD
       </button>
       <button class="btn btn-primary" style="width: 100% ; margin-top: 20px" (click)="exit()">Close</button>
     </div>

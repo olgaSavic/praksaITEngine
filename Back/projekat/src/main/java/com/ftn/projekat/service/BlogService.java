@@ -54,53 +54,8 @@ public class BlogService {
 		return b ;
 		
 	}
-	
-	public Blog addTagToBlog(Long idBlog, TagDTO dto) throws NotFoundException
-	{
-		Blog b = blogRepository.getOne(idBlog);
 		
-		if (b == null)
-		{
-			return b ;
-		}
 		
-		Tag t = new Tag();
-		t.setTagName(dto.getTagName());
-		Set<Tag> blogTags = b.getTags();
-		blogTags.add(t);
-
-		blogRepository.save(b);
-		return b ;
-		
-	}
-	
-	public Blog addCommentToBlog(Long idBlog, CommentDTO dto) throws NotFoundException
-	{
-		Blog b = blogRepository.getOne(idBlog);
-		
-		if (b == null)
-		{
-			return b ;
-		}
-		
-		Comment c = new Comment();
-		c.setValue(dto.getValue());
-		c.setBlog(b);
-		
-		commentRepository.save(c);
-		return b ;
-		
-
-		
-	}
-	
-	public Set<Tag> returnTagsOfBlog(Long blogId)
-	{
-		Blog b = blogRepository.getOne(blogId);
-		
-		return b.getTags() ;
-	}
-	
 	// izmena postojeceg bloga
 	public Blog editBlog(Long idBlog, BlogDTO dto)
 	{

@@ -70,23 +70,6 @@ public class BlogController {
 		
 	}
 	
-	// Tags
-	@PreAuthorize("hasRole('ROLE_BLOGER')")
-	@PutMapping("/addTagToBlog/{idBlog}")
-	public ResponseEntity<Blog> addTagToBlog(@PathVariable Long idBlog, @RequestBody @Valid TagDTO dto, BindingResult result) throws Exception {
-		if(result.hasErrors()) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-		Blog b = blogService.addTagToBlog(idBlog, dto);
-		if (b == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		else {
-			return new ResponseEntity<Blog>(b, HttpStatus.OK);
-		}
-		
-	}
-	
 	@PreAuthorize("hasRole('ROLE_BLOGER')")
 	@GetMapping("/getBlogsByUser/{idUser}")
 	public ResponseEntity<List<Blog>> getBlogsByUser(@PathVariable Long idUser) throws Exception 
@@ -95,7 +78,6 @@ public class BlogController {
 		return new ResponseEntity<List<Blog>>(blogs, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BLOGER')")
 	@PutMapping("/searchBlogsByTag")
 	public ResponseEntity<List<Blog>> searchBlogsByTag(@RequestBody @Valid TagDTO dto, BindingResult result) throws Exception {
 		if(result.hasErrors()) {
@@ -127,22 +109,6 @@ public class BlogController {
 		
 	}
 	
-	// **************************************
-	
-	// Comment
-	@PreAuthorize("hasRole('ROLE_BLOGER')")
-	@PutMapping("/addCommentToBlog/{idBlog}")
-	public ResponseEntity<Blog> addCommentToBlog(@PathVariable Long idBlog, @RequestBody CommentDTO dto) throws Exception {
-
-		Blog b = blogService.addCommentToBlog(idBlog, dto);
-		if (b == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		else {
-			return new ResponseEntity<Blog>(b, HttpStatus.OK);
-		}
-		
-	}
 
 	@PreAuthorize("hasRole('ROLE_BLOGER')")
 	@DeleteMapping("/deleteBlog/{idBlog}")
@@ -152,20 +118,11 @@ public class BlogController {
 		return response; // TRUE - uspesno obrisan, FALSE - nije obrisan (nije pronadjen)
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BLOGER')")
 	@GetMapping("/getAllBlogs")
 	public ResponseEntity<List<Blog>> getAllBlogs() throws Exception 
 	{
 		ArrayList<Blog> blogs = (ArrayList<Blog>) blogService.getAllBlogs();
 		return new ResponseEntity<List<Blog>>(blogs, HttpStatus.OK);
-	}
-	
-	@PreAuthorize("hasRole('ROLE_BLOGER')")
-	@GetMapping("/returnTagsOfBlog/{idBlog}")
-	public ResponseEntity<Set<Tag>> returnTagsOfBlog(@PathVariable Long idBlog) throws Exception 
-	{
-		Set<Tag> tags = blogService.returnTagsOfBlog(idBlog);
-		return new ResponseEntity<Set<Tag>>(tags, HttpStatus.OK);
 	}
 	
 	// vraca listu blogova trenutno ulogovanog korisnika

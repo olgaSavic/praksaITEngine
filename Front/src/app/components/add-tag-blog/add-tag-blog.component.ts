@@ -5,6 +5,7 @@ import {AuthService} from "../../service/auth.service";
 import {BlogService} from "../../service/blog.service";
 import {BlogModel} from "../../model/blog.model";
 import {TagModel} from "../../model/tag.model";
+import {TagService} from '../../service/tag.service';
 
 @Component({
   selector: 'app-add-tag-blog',
@@ -20,6 +21,7 @@ export class AddTagBlogComponent implements OnInit {
               public fb: FormBuilder,
               private route: ActivatedRoute,
               private authService: AuthService,
+              private tagService: TagService,
               private blogService: BlogService) {
 
     this.form = this.fb.group({
@@ -45,7 +47,7 @@ export class AddTagBlogComponent implements OnInit {
     const tag = new TagModel();
     tag.tagName = this.tagName.value ;
 
-    this.blogService.addTagToBlog(id, tag).subscribe(data => {
+    this.tagService.addTagToBlog(id, tag).subscribe(data => {
       this.router.navigateByUrl('blogerPage');
     },
       error => {

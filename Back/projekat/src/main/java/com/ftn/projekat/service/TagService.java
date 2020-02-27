@@ -11,7 +11,10 @@ import com.ftn.projekat.dto.TagDTO;
 import com.ftn.projekat.model.Blog;
 import com.ftn.projekat.model.Tag;
 import com.ftn.projekat.model.User;
+import com.ftn.projekat.repository.BlogRepository;
 import com.ftn.projekat.repository.TagRepository;
+
+import javassist.NotFoundException;
 
 @Service
 public class TagService {
@@ -19,21 +22,38 @@ public class TagService {
 	@Autowired
 	TagRepository tagRepository ;
 	
-	public Tag addNewTag(TagDTO dto)  
-	{
-		
-		Tag t = new Tag();
-		t.setTagName(dto.getTagName());
-		t.setDeleted(false);
-
-		tagRepository.save(t);
-		return t ;
-		
-	}
+	@Autowired
+	BlogRepository blogRepository ;
 	
 	public List<Tag> getAllTags()
 	{
 		return tagRepository.findAllNotDeleted();
+	}
+	
+	public Blog addTagToBlog(Long idBlog, TagDTO dto) throws NotFoundException
+	{
+		Blog b = blogRepository.getOne(idBlog);
+		
+		if (b == null)
+		{
+			return b ;
+		}
+		
+		Tag t = new Tag();
+		t.setTagName(dto.getTagName());
+		Set<Tag> blogTags = b.getTags();
+		blogTags.add(t);
+
+		blogRepository.save(b);
+		return b ;
+		
+	}
+	
+	public Set<Tag> returnTagsOfBlog(Long blogId)
+	{
+		Blog b = blogRepository.getOne(blogId);
+		
+		return b.getTags() ;
 	}
 	
 	

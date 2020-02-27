@@ -13,6 +13,7 @@ import {AddTagBlogComponent} from "./components/add-tag-blog/add-tag-blog.compon
 import {AuthGuard} from "./guards/AuthGuard";
 import {AllBlogsComponent} from "./components/all-blogs/all-blogs.component";
 import {AddCommentComponent} from "./components/add-comment/add-comment.component";
+import {ShowCommentsComponent} from './components/show-comments/show-comments.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path: 'blogerPage/blog/:mode/:id', component: AddEditBlogComponent, canActivate: [AuthGuard]},
   {path: 'addPassword/:email', component: AddPasswordComponent },
   {path: 'blogerPage/addTag/:id', component: AddTagBlogComponent, canActivate: [AuthGuard]},
-  {path: 'addComment/:id', component: AddCommentComponent}
+  {path: 'addComment/:id', component: AddCommentComponent},
+  {path: 'showComments/:id', component: ShowCommentsComponent}
 
 
 ];

@@ -22,6 +22,17 @@ export class TagService {
     return this.http.get(`${this.BASE_URL}/getAllTags`, {headers});
   }
 
+  returnTagsOfBlog(id:any): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get(`${this.BASE_URL}/returnTagsOfBlog/${id}`, {headers});
+  }
+
+  addTagToBlog(id:any, object: TagModel): Observable<any> {
+    const body = JSON.stringify(object);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put(`${this.BASE_URL}/addTagToBlog/${id}`, body, {headers});
+  }
+
 
 
 }

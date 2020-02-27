@@ -40,7 +40,7 @@ import {TagService} from "../../service/tag.service";
 
             <button
               (click)="addTagToBlog(blog.id)"
-              style="border-radius: 12px;background-color: #1a8cff;color: white;height: 45px; width: 110px;font-size: 20px;margin-right: 20px">AddTag
+              style="border-radius: 12px;background-color: #1a8cff;color: white;height: 45px; width: 110px;font-size: 20px;margin-right: 20px">Add tag
             </button>
             <button
               (click)="editBlog(blog.id)"
@@ -105,7 +105,6 @@ export class BlogsComponent implements OnInit {
   }
 
   addBlog() {
-    const idRent = this.route.snapshot.params.idRent ;
     this.router.navigateByUrl('blogerPage/blog/add/');
   }
 

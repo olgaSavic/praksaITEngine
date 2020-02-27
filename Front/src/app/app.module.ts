@@ -51,6 +51,8 @@ import { AllBlogsComponent } from './components/all-blogs/all-blogs.component';
 import {AuthGuard} from "./guards/AuthGuard";
 import {RandomGuard} from "./guards/RandomGuard";
 import { AllBlogsAdminComponent } from './components/all-blogs-admin/all-blogs-admin.component';
+import { ShowCommentsComponent } from './components/show-comments/show-comments.component';
+import {CommentService} from './service/comment.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,9 @@ import { AllBlogsAdminComponent } from './components/all-blogs-admin/all-blogs-a
 
     AllBlogsComponent,
 
-    AllBlogsAdminComponent
+    AllBlogsAdminComponent,
+
+    ShowCommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -122,6 +126,7 @@ import { AllBlogsAdminComponent } from './components/all-blogs-admin/all-blogs-a
     AuthService,
     BlogService,
     TagService,
+    CommentService,
     AuthGuard,
     RandomGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

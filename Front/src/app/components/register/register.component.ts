@@ -54,7 +54,6 @@ export class RegisterComponent implements OnInit {
     this.imagePath = files;
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
-      //this.imgUrl = "assets/" + reader.result;
     }
   }
 
