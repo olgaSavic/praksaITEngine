@@ -15,12 +15,12 @@ insert into db_praksa.user(id, email, first_name, last_name, is_deleted, pass, r
 	values(700, 'tata@gmail.com', 'Petar', 'Savic', false, '$2a$10$bFoT0UWjOFAIQoFRYCIicO2hwNwZy6qhWYq4eXmWqJevf7b2TWpae', 'ADMIN');
 	
 
-insert into db_praksa.blog(id, blog_body, blog_title, is_deleted, user_id)
-	values(100, 'Body of the first blog', 'First Blog', false, 500);
-insert into db_praksa.blog(id, blog_body, blog_title, is_deleted, user_id)
-	values(200, 'Body of the second blog', 'Second Blog', false, 500);
-insert into db_praksa.blog(id, blog_body, blog_title, is_deleted, user_id)
-	values(300, 'Body of the third blog', 'Third Blog', false, 500);
+insert into db_praksa.blog(id, blog_body, blog_title, is_deleted, user_id, date)
+	values(100, 'Body of the first blog', 'First Blog', false, 500, '2020-02-27');
+insert into db_praksa.blog(id, blog_body, blog_title, is_deleted, user_id, date)
+	values(200, 'Body of the second blog', 'Second Blog', false, 500, '2020-02-27');
+insert into db_praksa.blog(id, blog_body, blog_title, is_deleted, user_id, date)
+	values(300, 'Body of the third blog', 'Third Blog', false, 500, '2020-02-27');
 	
 insert into db_praksa.tag(id, tag_name, is_deleted)
 	values (100, 'sport', false);

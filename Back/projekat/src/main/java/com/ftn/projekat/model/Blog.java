@@ -1,5 +1,7 @@
 package com.ftn.projekat.model;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +24,8 @@ public class Blog extends Universal{
 	inverseJoinColumns = { @JoinColumn(name = "tag_id") }
 	  )
 	private Set<Tag> tags = new HashSet<Tag>();
+	
+	private LocalDate date ;
 	
 	public Blog() {
 		super();
@@ -74,6 +78,20 @@ public class Blog extends Universal{
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
+
+
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+	
+	
 	
 	
 

@@ -12,6 +12,6 @@ public class NameTitleValidator implements ConstraintValidator<NameTitleConstrai
 	@Override
 	public boolean isValid(String field, ConstraintValidatorContext context) {
 		return field != null && field.matches("[A-Za-z]+$")
-				&& (field.length() > 2) && (field.length() < 50);
+				&& (field.length() > 1) && (field.length() < 50);
 	}
 }

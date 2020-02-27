@@ -1,5 +1,6 @@
 package com.ftn.projekat.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -8,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ftn.projekat.dto.BlogDTO;
+import com.ftn.projekat.dto.CommentDTO;
 import com.ftn.projekat.dto.TagDTO;
 import com.ftn.projekat.model.Blog;
+import com.ftn.projekat.model.Comment;
 import com.ftn.projekat.model.Tag;
 import com.ftn.projekat.model.User;
 import com.ftn.projekat.repository.BlogRepository;
+import com.ftn.projekat.repository.CommentRepository;
 import com.ftn.projekat.repository.TagRepository;
+import com.ftn.projekat.repository.UserRepository;
 
 import javassist.NotFoundException;
 
@@ -25,6 +30,9 @@ public class BlogService {
 	
 	@Autowired
 	TagRepository tagRepository ;
+	
+	@Autowired
+	CommentRepository commentRepository ;
 	
 	@Autowired
 	UserService userService ;
@@ -41,6 +49,7 @@ public class BlogService {
 		User korisnik = userService.getCurrentUser();
 		b.setUser(korisnik);
 		
+		b.setDate(LocalDate.now());
 		blogRepository.save(b);
 		return b ;
 		
@@ -61,6 +70,24 @@ public class BlogService {
 		blogTags.add(t);
 
 		blogRepository.save(b);
+		return b ;
+		
+	}
+	
+	public Blog addCommentToBlog(Long idBlog, CommentDTO dto) throws NotFoundException
+	{
+		Blog b = blogRepository.getOne(idBlog);
+		
+		if (b == null)
+		{
+			return b ;
+		}
+		
+		Comment c = new Comment();
+		c.setValue(dto.getValue());
+		c.setBlog(b);
+		
+		commentRepository.save(c);
 		return b ;
 		
 
@@ -144,6 +171,25 @@ public class BlogService {
 	public ArrayList<Blog> searchBlogsByTag(TagDTO dto)
 	{
 		List <Blog> blogs = blogRepository.findAllNotDeleted();
+		ArrayList<Blog> good = new ArrayList<Blog>();
+		
+		for (Blog b: blogs) {
+			for (Tag t: b.getTags())
+			{
+				if (t.getTagName().equals(dto.getTagName()))
+				{
+					good.add(b);
+				}
+			}
+		}
+		
+		return good ;
+	}
+	
+	public ArrayList<Blog> searchMyBlogsByTag(TagDTO dto)
+	{
+		Long idUser = userService.getCurrentUser().getId();
+		List <Blog> blogs = blogRepository.findAllByMeNotDeleted(idUser);
 		ArrayList<Blog> good = new ArrayList<Blog>();
 		
 		for (Blog b: blogs) {

@@ -42,12 +42,15 @@ import { AdminProfileEditComponent } from './components/admin-profile-edit/admin
 import { BlogsComponent } from './components/blogs/blogs.component';
 import { AddEditBlogComponent } from './components/add-edit-blog/add-edit-blog.component';
 import {BlogService} from "./service/blog.service";
-import {AuthGuard} from "./components/guards/AuthGuard";
-import {RandomGuard} from "./components/guards/RandomGuard";
 import { AddPasswordComponent } from './components/add-password/add-password.component';
 import {FileUploadModule} from "ng2-file-upload";
 import { AddTagBlogComponent } from './components/add-tag-blog/add-tag-blog.component';
 import {TagService} from "./service/tag.service";
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
+import { AllBlogsComponent } from './components/all-blogs/all-blogs.component';
+import {AuthGuard} from "./guards/AuthGuard";
+import {RandomGuard} from "./guards/RandomGuard";
+import { AllBlogsAdminComponent } from './components/all-blogs-admin/all-blogs-admin.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +80,13 @@ import {TagService} from "./service/tag.service";
 
     AddPasswordComponent,
 
-    AddTagBlogComponent
+    AddTagBlogComponent,
+
+    AddCommentComponent,
+
+    AllBlogsComponent,
+
+    AllBlogsAdminComponent
   ],
   imports: [
     BrowserModule,

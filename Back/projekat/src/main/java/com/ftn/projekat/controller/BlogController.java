@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ftn.projekat.dto.BlogDTO;
+import com.ftn.projekat.dto.CommentDTO;
 import com.ftn.projekat.dto.TagDTO;
 import com.ftn.projekat.model.Blog;
 import com.ftn.projekat.model.Tag;
@@ -110,7 +111,38 @@ public class BlogController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ROLE_BLOGER')")
+	@PutMapping("/searchMyBlogsByTag")
+	public ResponseEntity<List<Blog>> searchMyBlogsByTag(@RequestBody @Valid TagDTO dto, BindingResult result) throws Exception {
+		if(result.hasErrors()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+		List<Blog> b = blogService.searchMyBlogsByTag(dto);
+		if (b == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<List<Blog>>(b, HttpStatus.OK);
+		}
+		
+	}
+	
 	// **************************************
+	
+	// Comment
+	@PreAuthorize("hasRole('ROLE_BLOGER')")
+	@PutMapping("/addCommentToBlog/{idBlog}")
+	public ResponseEntity<Blog> addCommentToBlog(@PathVariable Long idBlog, @RequestBody CommentDTO dto) throws Exception {
+
+		Blog b = blogService.addCommentToBlog(idBlog, dto);
+		if (b == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<Blog>(b, HttpStatus.OK);
+		}
+		
+	}
 
 	@PreAuthorize("hasRole('ROLE_BLOGER')")
 	@DeleteMapping("/deleteBlog/{idBlog}")

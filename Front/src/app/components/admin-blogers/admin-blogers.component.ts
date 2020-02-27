@@ -9,7 +9,7 @@ import {UserService} from "../../service/user.service";
 
   template: `
     <div style="text-align: center">
-      <p  style="color: black;font-size:40px; font-weight: bolder; font-family: 'Lucida Grande'; margin-bottom: 5%">List of blogs</p>
+      <p  style="color: black;font-size:40px; font-weight: bolder; font-family: 'Lucida Grande'; margin-bottom: 5%">List of blogers</p>
     </div>
 
     <div>

@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BlogModel} from "../model/blog.model";
 import {TagModel} from "../model/tag.model";
+import {CommentModel} from "../model/comment.model";
 
 
 const httpOptions = {
@@ -22,6 +23,11 @@ export class BlogService {
     return this.http.get(`${this.BASE_URL}/getAllBlogs`, {headers});
   }
 
+  getMyBlogs(): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get(`${this.BASE_URL}/getMyBlogs`, {headers});
+  }
+
   returnTagsOfBlog(id:any): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.get(`${this.BASE_URL}/returnTagsOfBlog/${id}`, {headers});
@@ -34,10 +40,22 @@ export class BlogService {
     return this.http.put(`${this.BASE_URL}/addTagToBlog/${id}`, body, {headers});
   }
 
+  addCommentToBlog(id:any, object: CommentModel): Observable<any> {
+    const body = JSON.stringify(object);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put(`${this.BASE_URL}/addCommentToBlog/${id}`, body, {headers});
+  }
+
   searchBlogsByTag(object: TagModel): Observable<any> {
     const body = JSON.stringify(object);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.put(`${this.BASE_URL}/searchBlogsByTag`, body, {headers});
+  }
+
+  searchMyBlogsByTag(object: TagModel): Observable<any> {
+    const body = JSON.stringify(object);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put(`${this.BASE_URL}/searchMyBlogsByTag`, body, {headers});
   }
 
   editBlog(id:any, object: BlogModel): Observable<any> {

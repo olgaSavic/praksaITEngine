@@ -8,17 +8,11 @@ import {TagModel} from "../../model/tag.model";
 import {BlogModel} from "../../model/blog.model";
 import {TagService} from "../../service/tag.service";
 
-/*
-<div *ngFor="let tag of tags">
-            # <p style="font-size: 20px"> {{tag.tagName}}</p>
-          </div>
- */
-
 @Component({
   selector: 'app-blogs',
   template: `
     <div style="text-align: center">
-      <p  style="color: black;font-size:40px; font-weight: bolder; font-family: 'Lucida Grande'; margin-bottom: 5%">List of blogs</p>
+      <p  style="color: black;font-size:40px; font-weight: bolder; font-family: 'Lucida Grande'; margin-bottom: 5%">List of my blogs</p>
     </div>
     <div>
       <button class="btn btn-outline-primary" style="width: 40%;margin-top: 20px; font-size: 1.5em;margin-bottom: 30px;" (click)="addBlog()">Add new blog</button>
@@ -39,6 +33,9 @@ import {TagService} from "../../service/tag.service";
           </div>
           <p style="font-size: 20px">Blog body: <b> {{blog.blogTitle}} </b></p>
           <p style="font-size: 20px">Blog body: <b> {{blog.blogBody}} </b></p>
+          <br>
+          <p style="font-size: 20px ">User: <b> {{blog.user.firstName}} {{blog.user.lastName}} </b></p>
+          <p style="font-size: 20px">Date published: <b> {{blog.date}} </b></p>
           <div style="margin-bottom: 20px">
 
             <button
@@ -96,7 +93,7 @@ export class BlogsComponent implements OnInit {
       this.tagsList = res;
     })
 
-    this.blogService.getAllBlogs().subscribe(data => {
+    this.blogService.getMyBlogs().subscribe(data => {
       this.blogs = data;
 
     })
@@ -144,7 +141,7 @@ export class BlogsComponent implements OnInit {
 
   search(tag: TagModel)
   {
-    this.blogService.searchBlogsByTag(tag).subscribe(data => {
+    this.blogService.searchMyBlogsByTag(tag).subscribe(data => {
       this.blogs = data ;
     })
   }

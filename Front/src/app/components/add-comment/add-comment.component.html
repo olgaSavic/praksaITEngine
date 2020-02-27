@@ -1,0 +1,38 @@
+<div class="items-wrapper__item items-wrapper__item-small items-wrapper__item--blue">
+  <igx-navbar style="font-family: 'Lucida Grande'" title="B L O G ">
+    <button class="btn-primary" (click)="ulogujSe()">Login</button>
+    <button class="btn-primary" (click)="registrujSe()"> Register</button>
+  </igx-navbar>
+</div>
+
+<br>
+<div style="text-align: center">
+  <p  style="color: black;font-size:60px; font-family: 'Lucida Grande'; margin-bottom: 10%">Add comment</p>
+</div>
+
+<div style="margin-bottom:50px;margin-right: 30%;margin-left: 30%">
+
+  <form [formGroup]="form">
+    <div class="form-group">
+
+      <label style="margin-top: 20px">Comments:</label>
+      <input name="comment" class="form-control margin" [formControl]="comment">
+      <small class="form-text error" *ngIf="comment.errors?.required && comment.touched" style="color: red">
+        Comment cannot be empty!
+      </small>
+
+      <label style="margin-top: 20px">Choose :</label>
+      <textarea name="blogBody" class="form-control" [formControl]="blogBody"></textarea>
+      <small class="form-text error" *ngIf="blogBody.errors?.required && blogBody.touched" style="color: red">
+        Blog body cannot be empty!
+      </small>
+
+
+      <button class="btn btn-primary" style="width: 100%;margin-top: 30px" (click)="confirmClick()"
+              [disabled]="!form.valid">
+        {{method_name}}
+      </button>
+      <button class="btn btn-primary" style="width: 100% ; margin-top: 20px" (click)="exit()">Close</button>
+    </div>
+  </form>
+</div>

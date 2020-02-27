@@ -22,4 +22,9 @@ export class HomepageComponent implements OnInit {
     this.router.navigateByUrl('/register');
   }
 
+  showBlogs()
+  {
+    this.router.navigateByUrl('/allBlogs');
+  }
+
 }
