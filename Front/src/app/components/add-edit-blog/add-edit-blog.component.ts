@@ -29,7 +29,7 @@ export class AddEditBlogComponent implements OnInit {
 
     this.form = this.fb.group({
 
-      'blogTitle': ['', Validators.compose([Validators.required,  Validators.pattern('[A-Za-z]+$')])],
+      'blogTitle': ['', Validators.compose([Validators.required])],
       'blogBody': ['', Validators.compose([Validators.required])]
     })
 

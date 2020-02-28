@@ -32,6 +32,11 @@ import {TagModel} from "../../model/tag.model";
           <p style="font-size: 20px">Date published: <b> {{blog.date}} </b></p>
           <div style="margin-bottom: 20px">
 
+            <button
+              (click)="showComments(blog.id)"
+              style="border-radius: 12px;background-color: #1a8cff;color: white;height: 45px; width: 110px;font-size: 20px;margin-right: 20px">Comments
+            </button>
+
           </div>
        </div>
       </li>
@@ -92,6 +97,11 @@ export class AllBlogsAdminComponent implements OnInit {
     this.blogService.searchBlogsByTag(tag).subscribe(data => {
       this.blogs = data ;
     })
+  }
+
+  showComments(id: any)
+  {
+    this.router.navigateByUrl('showComments/' + id);
   }
 
 }

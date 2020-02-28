@@ -17,6 +17,9 @@ export class AddEditBlogerComponent implements OnInit {
   public firstName: AbstractControl;
   public lastName: AbstractControl;
   public email: AbstractControl;
+  public role: AbstractControl ;
+
+  roles = [] ;
 
   naslovStranice: string;
   public method_name = 'ADD';
@@ -31,18 +34,26 @@ export class AddEditBlogerComponent implements OnInit {
 
       'firstName': ['', Validators.compose([Validators.required,  Validators.pattern('[A-Za-z]+$')])],
       'lastName': ['', Validators.compose([Validators.required,  Validators.pattern('[A-Za-z]+$')])],
+      'role': ['', Validators.compose([Validators.required])],
       'email': ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*.com$')])],
     })
 
     this.firstName = this.form.controls['firstName'];
     this.lastName = this.form.controls['lastName'];
     this.email = this.form.controls['email'];
+    this.role = this.form.controls['role'];
+
   }
 
   ngOnInit() {
 
     const id = this.route.snapshot.params.id;
     const mode = this.route.snapshot.params.mode;
+
+    this.userService.getUserTypes().subscribe(data => {
+      console.log(data);
+      this.roles = data ;
+    })
 
     if (mode == 'edit') {
       this.method_name = 'EDIT';
@@ -79,6 +90,7 @@ export class AddEditBlogerComponent implements OnInit {
     bloger.firstName = this.firstName.value ;
     bloger.lastName = this.lastName.value ;
     bloger.email = this.email.value ;
+    bloger.role = this.role.value ;
 
     this.userService.createNewUser(bloger).subscribe(data => {
       this.router.navigateByUrl('adminPage');

@@ -25,6 +25,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query(value = "SELECT * FROM user as u where u.role = 'ADMIN' and u.is_deleted = FALSE", nativeQuery = true)
 	List<User> findAllAdminsNotDeleted();
 	
+	@Query(value = "SELECT role from user as u where u.is_deleted = FALSE", nativeQuery = true)
+	List<String> findAllRoles();
+	
 	
 
 }

@@ -31,6 +31,11 @@ export class UserService {
     return this.http.get(`${this.BASE_URL}/getAllUsers`, {headers});
   }
 
+  getUserTypes(): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get(`${this.BASE_URL}/getUserTypes`, {headers});
+  }
+
   getCurrentUser(): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.get(`${this.BASE_URL}/getCurrentUser`, {headers});

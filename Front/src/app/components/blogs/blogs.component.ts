@@ -50,6 +50,11 @@ import {TagService} from "../../service/tag.service";
               (click)="deleteBlog(blog.id)"
               style="border-radius: 12px;background-color: #1a8cff;height: 45px; width: 110px;color: white;font-size: 20px;margin-right: 30px">Delete
             </button>
+
+            <button
+              (click)="showComments(blog.id)"
+              style="border-radius: 12px;background-color: #1a8cff;color: white;height: 45px; width: 110px;font-size: 20px;margin-right: 20px">Comments
+            </button>
           </div>
        </div>
       </li>
@@ -167,6 +172,11 @@ export class BlogsComponent implements OnInit {
 
   goBack() {
     this.router.navigateByUrl('blogerPage' );
+  }
+
+  showComments(id: any)
+  {
+    this.router.navigateByUrl('showComments/' + id);
   }
 
 }

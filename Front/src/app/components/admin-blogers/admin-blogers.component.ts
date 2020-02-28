@@ -13,7 +13,7 @@ import {UserService} from "../../service/user.service";
     </div>
 
     <div>
-      <button class="btn btn-outline-primary" style="width: 40%;margin-top: 20px; font-size: 1.5em;margin-bottom: 30px;" (click)="addBloger()">Add new blog</button>
+      <button class="btn btn-outline-primary" style="width: 40%;margin-top: 20px; font-size: 1.5em;margin-bottom: 30px;" (click)="addBloger()">Add new bloger</button>
     </div>
 
     <div

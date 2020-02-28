@@ -19,7 +19,7 @@ import {CommentService} from '../../service/comment.service';
     <div style="text-align: center">
       <p  style="color: black;font-size:40px; font-weight: bolder; font-family: 'Lucida Grande'; margin-bottom: 5%">List of blog comments</p>
     </div>
-    
+
     <div
       style="text-align: center; margin-left: 20%;margin-right: 20%">
     <ul>
@@ -31,7 +31,7 @@ import {CommentService} from '../../service/comment.service';
           <p style="font-size: 20px ">User: <b> {{comment.name}}</b></p>
           <p style="font-size: 20px">Date published: <b> {{comment.date}} </b></p>
           <div style="margin-bottom: 20px">
-            
+
           </div>
        </div>
       </li>
@@ -79,7 +79,18 @@ export class ShowCommentsComponent implements OnInit {
   }
 
   exit() {
-    this.router.navigateByUrl('allBlogs' );
+    this.authService.getCurrentUser().subscribe(data =>
+    {
+      if(data == null) // nije niko ulogovan
+      {
+        this.router.navigateByUrl('allBlogs' );
+      }
+      if (localStorage.getItem("ROLE") == "ADMIN") {
+        this.router.navigate(["/adminPage"]);
+      } else if (localStorage.getItem("ROLE") == "BLOGER") {
+        this.router.navigate(["/blogerPage"])
+      }
+    })
   }
 
   ulogujSe() {

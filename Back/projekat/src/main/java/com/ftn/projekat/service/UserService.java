@@ -1,6 +1,7 @@
 package com.ftn.projekat.service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -64,7 +65,15 @@ public class UserService {
 		{
 		
 			User k = new User(korisnik.getFirstName(), korisnik.getLastName(), korisnik.getEmail());
-			k.setRole(UserType.BLOGER); // admin dodaje blogera
+			
+			if (korisnik.getRole().equals("ADMIN")) {
+				k.setRole(UserType.ADMIN);
+			}
+			else
+			{
+				k.setRole(UserType.BLOGER); 
+
+			}
 			k.setDeleted(false);
 			// cuvanje u bazu
 			userRepository.save(k);
@@ -72,6 +81,22 @@ public class UserService {
 			emailService.sendNotificaitionAsync(k);
 			return "ok";
 		}
+	}
+	
+	public List<String> getUserTypes()
+	{
+		List<User> users = userRepository.findAllNotDeleted();
+		List<String> roles = new ArrayList<String>();
+		
+		for (User u: users) {
+			if (!roles.contains(u.getRole().toString()))
+			{
+				roles.add(u.getRole().toString()); 
+				System.out.println("Dodajem rolu: " + u.getRole().toString());
+			}
+		}
+		return roles ;
+		
 	}
 	
 	public User editUserPassword(String email, UserDTO dto)

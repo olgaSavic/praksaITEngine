@@ -64,6 +64,13 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/getUserTypes", method = RequestMethod.GET)
+	public ResponseEntity<List<String>> getUserTypes() {	
+		List<String> roles = userService.getUserTypes();
+		return new ResponseEntity<>(roles, HttpStatus.OK);
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/editUser/{id}")
 	public ResponseEntity<User> editUser( @PathVariable Long id, @RequestBody @Valid UserDTO dto, BindingResult result) throws NoSuchAlgorithmException {
 		if(result.hasErrors()) {
@@ -83,7 +90,7 @@ public class UserController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/editUserPassword/{email}")
-	public ResponseEntity<User> editUserPassword( @PathVariable String email, @RequestBody @Valid UserDTO dto, BindingResult result) throws NoSuchAlgorithmException {
+	public ResponseEntity<User> editUserPassword( @PathVariable String email, @RequestBody UserDTO dto, BindingResult result) throws NoSuchAlgorithmException {
 		if(result.hasErrors()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -99,7 +106,7 @@ public class UserController {
 	
 	
 	@PutMapping("/editCurrentUser")
-	public ResponseEntity<User> editCurrentUser(@RequestBody @Valid UserDTO dto, BindingResult result) throws NoSuchAlgorithmException {
+	public ResponseEntity<User> editCurrentUser(@RequestBody UserDTO dto, BindingResult result) throws NoSuchAlgorithmException {
 		if(result.hasErrors()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

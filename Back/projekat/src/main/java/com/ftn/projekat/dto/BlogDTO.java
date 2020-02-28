@@ -4,7 +4,6 @@ import com.ftn.projekat.validators.NameTitleConstraint;
 
 public class BlogDTO {
 	
-	@NameTitleConstraint
 	private String blogTitle ;
 	
 	private String blogBody ;
