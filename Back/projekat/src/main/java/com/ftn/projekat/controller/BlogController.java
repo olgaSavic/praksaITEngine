@@ -63,17 +63,21 @@ public class BlogController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 		
-		Blog b = blogService.editBlog(idBlog, dto);
-		if (b == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		try {
+			Blog b = blogService.editBlog(idBlog, dto);
+			if (b == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			else {
+				return new ResponseEntity<Blog>(b, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		else {
-			return new ResponseEntity<Blog>(b, HttpStatus.OK);
-		}
+		
 		
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BLOGER')")
 	@GetMapping("/getBlogsByUser/{idUser}")
 	public ResponseEntity<List<Blog>> getBlogsByUser(@PathVariable Long idUser) throws Exception 
 	{
@@ -137,8 +141,6 @@ public class BlogController {
 		return new ResponseEntity<List<Blog>>(blogs, HttpStatus.OK);
 	}
 	
-	// provera da li je vozilo rezervisano
-	@PreAuthorize("hasRole('ROLE_BLOGER')")
 	@GetMapping("/canEditDeleteBlog/{id}")
 	public boolean canEditDeleteBlog(@PathVariable Long id) 
 	{
@@ -146,7 +148,6 @@ public class BlogController {
 		return mine; // mine -> TRUE ako je nasao medju blogovima moj, inace false
 	}	
 	
-	@PreAuthorize("hasRole('ROLE_BLOGER')")
 	@GetMapping("/returnBlogById/{id}")
 	public ResponseEntity<Blog> returnBlogById(@PathVariable Long id) throws Exception 
 	{		

@@ -50,7 +50,10 @@ export class AddEditBlogComponent implements OnInit {
       this.blogService.returnBlogById(id).subscribe(data => {
         this.form.controls['blogTitle'].setValue(data.blogTitle);
         this.form.controls['blogBody'].setValue(data.blogBody);
-      })
+      },
+        error => {
+        this.router.navigateByUrl('blogerPage');
+        })
     } else if (mode == 'add') {
       this.method_name = 'ADD';
       this.naslovStranice = 'Add blog page';
@@ -97,6 +100,7 @@ export class AddEditBlogComponent implements OnInit {
     this.blogService.editBlog(id, blog).subscribe(data =>
     {
       this.router.navigateByUrl('blogerPage');
+
     },
       error => {
       alert('Incoorrect input for fields!');

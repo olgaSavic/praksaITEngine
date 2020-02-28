@@ -23,11 +23,11 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent },
   {path: 'allBlogs', component: AllBlogsComponent },
   {path: 'adminPage', component: AdminPageComponent, canActivate: [AuthGuard] },
-  {path: 'blogerPage', component: BlogerPageComponent, canActivate: [AuthGuard] },
+  {path: 'blogerPage', component: BlogerPageComponent },
   {path: 'adminPage/bloger/:mode/:id', component: AddEditBlogerComponent, canActivate: [AuthGuard] },
-  {path: 'blogerPage/blog/:mode/:id', component: AddEditBlogComponent, canActivate: [AuthGuard]},
+  {path: 'blogerPage/blog/:mode/:id', component: AddEditBlogComponent},
   {path: 'addPassword/:email', component: AddPasswordComponent },
-  {path: 'blogerPage/addTag/:id', component: AddTagBlogComponent, canActivate: [AuthGuard]},
+  {path: 'blogerPage/addTag/:id', component: AddTagBlogComponent},
   {path: 'addComment/:id', component: AddCommentComponent},
   {path: 'showComments/:id', component: ShowCommentsComponent}
 

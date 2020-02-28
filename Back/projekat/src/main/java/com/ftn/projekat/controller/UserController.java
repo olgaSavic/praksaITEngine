@@ -88,7 +88,6 @@ public class UserController {
 		}
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/editUserPassword/{email}")
 	public ResponseEntity<User> editUserPassword( @PathVariable String email, @RequestBody @Valid UserDTO dto, BindingResult result) throws NoSuchAlgorithmException {
 		if(result.hasErrors()) {

@@ -66,7 +66,10 @@ export class AddEditBlogerComponent implements OnInit {
         this.form.controls['role'].setValue(data.role);
 
 
-      })
+      },
+        error => {
+          this.router.navigateByUrl('adminPage');
+        })
     } else if (mode == 'add') {
       this.method_name = 'ADD';
       this.naslovStranice = 'Add bloger page';

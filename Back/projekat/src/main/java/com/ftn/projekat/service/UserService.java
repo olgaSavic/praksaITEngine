@@ -152,8 +152,14 @@ public class UserService {
 		// na osnovu id-ja je nasao korisnika koga menja
 		korisnik.setFirstName(dto.getFirstName());
 		korisnik.setLastName(dto.getLastName());
-		String tempPass = encoder.encode(dto.getPass());
-		korisnik.setPass(tempPass);
+		
+		System.out.println("Lozinka je: " + dto.getPass());
+		
+		if (dto.getPass() != "") {
+			System.out.println("Menjam pass!");
+			String tempPass = encoder.encode(dto.getPass());
+			korisnik.setPass(tempPass);
+		}
 				
 		userRepository.save(korisnik);
 		return korisnik;

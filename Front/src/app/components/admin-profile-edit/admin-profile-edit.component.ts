@@ -26,7 +26,7 @@ export class AdminProfileEditComponent implements OnInit {
     this.form = this.fb.group({
       'firstName': ['', Validators.compose([Validators.required])],
       'lastName': ['', Validators.compose([Validators.required])],
-      'pass': ['', Validators.compose([Validators.required])]
+      'pass': ['']
     })
     this.firstName = this.form.controls['firstName'];
     this.lastName = this.form.controls['lastName'];
@@ -38,10 +38,13 @@ export class AdminProfileEditComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(data => {
       this.form.controls['firstName'].setValue(data.firstName);
       this.form.controls['lastName'].setValue(data.lastName);
-      this.form.controls['pass'].setValue('');
+      //this.form.controls['pass'].setValue('');
       this.newPass = data.pass;
+    },
+      error => {
+        this.router.navigateByUrl('adminPage');
 
-    });
+      });
   }
 
   saveChanges() {
@@ -53,6 +56,19 @@ export class AdminProfileEditComponent implements OnInit {
     admin.firstName = this.firstName.value ;
     admin.lastName = this.lastName.value ;
     admin.pass = this.pass.value;
+
+    /*
+    if (this.pass.value == null || this.pass.value == '' || this.pass.value == undefined)
+    {
+      admin.pass = this.newPass;
+      alert('Stara lozinka: ' + admin.pass);
+    }
+    else {
+      admin.pass = this.pass.value;
+      alert('Nova lozinka: ' + admin.pass);
+
+    }
+     */
 
     this.userService.editCurrentUser(admin).subscribe(data => {
       this.redirectTo('/adminPage');
