@@ -45,8 +45,11 @@ public class BlogController {
 	
 	@PreAuthorize("hasRole('ROLE_BLOGER')")
 	@PostMapping("/addNewBlog")
-	public ResponseEntity<Blog> addNewBlog(@RequestBody BlogDTO dto) 
+	public ResponseEntity<Blog> addNewBlog(@RequestBody @Valid BlogDTO dto, BindingResult result) 
 	{
+		if(result.hasErrors()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 		Blog b = blogService.addNewBlog(dto);
 		return new ResponseEntity<Blog>(b, HttpStatus.OK);
 		

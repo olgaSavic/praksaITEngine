@@ -92,7 +92,6 @@ public class UserService {
 			if (!roles.contains(u.getRole().toString()))
 			{
 				roles.add(u.getRole().toString()); 
-				System.out.println("Dodajem rolu: " + u.getRole().toString());
 			}
 		}
 		return roles ;
@@ -122,10 +121,19 @@ public class UserService {
 		{
 			return null ;
 		}
-		// na osnovu id-ja je nasao korisnika koga menja
+		List<User> users = userRepository.findAllNotDeleted();
+		
 		korisnik.setFirstName(dto.getFirstName());
 		korisnik.setLastName(dto.getLastName());
 		korisnik.setEmail(dto.getEmail());
+		if (dto.getRole().equals("ADMIN")) {
+			korisnik.setRole(UserType.ADMIN);
+		}
+		else
+		{
+			korisnik.setRole(UserType.BLOGER); 
+
+		}
 		
 		userRepository.save(korisnik);
 		return korisnik;
@@ -146,9 +154,7 @@ public class UserService {
 		korisnik.setLastName(dto.getLastName());
 		String tempPass = encoder.encode(dto.getPass());
 		korisnik.setPass(tempPass);
-		
-		System.out.println("Pass je: " + dto.getPass());
-		
+				
 		userRepository.save(korisnik);
 		return korisnik;
 		
@@ -201,6 +207,12 @@ public class UserService {
 	public User findByEmail(String email)
 	{
 		User u = userRepository.findOneByEmail(email);
+		return u ;
+	}
+	
+	public User findByEmailNotDeleted(String email)
+	{
+		User u = userRepository.findByEmailAndNotDeleted(email);
 		return u ;
 	}
 	

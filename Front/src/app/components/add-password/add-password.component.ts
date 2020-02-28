@@ -51,7 +51,11 @@ export class AddPasswordComponent implements OnInit {
       this.userService.editUserPassword(email, this.user).subscribe(data => {
         alert("You can login now!");
         this.router.navigateByUrl('login');
-      })
+      },
+        error => {
+          alert('Incoorrect input for fields!');
+
+        })
     }
 
   }

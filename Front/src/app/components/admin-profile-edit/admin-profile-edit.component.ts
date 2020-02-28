@@ -56,7 +56,10 @@ export class AdminProfileEditComponent implements OnInit {
 
     this.userService.editCurrentUser(admin).subscribe(data => {
       this.redirectTo('/adminPage');
-    });
+    },
+      error => {
+        alert('Incoorrect input for fields!');
+      });
   }
 
   redirectTo(uri: string) {

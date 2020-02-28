@@ -21,13 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		
-		com.ftn.projekat.model.User user = service.findByEmail(email);
-		
-		System.out.println("Email je: " + user.getEmail());
-		System.out.println("Lozinka je: " + user.getPass());
+		com.ftn.projekat.model.User user = service.findByEmailNotDeleted(email);
 		
 		if(user != null) {
-			System.out.println("User nije null!");
 				// Remember that Spring needs roles to be in this format: "ROLE_" + userRole (i.e. "ROLE_ADMIN")
 				// So, we need to set it to that format, so we can verify and compare roles (i.e. hasRole("ADMIN")).
 				List<GrantedAuthority> grantedAuthorities = AuthorityUtils

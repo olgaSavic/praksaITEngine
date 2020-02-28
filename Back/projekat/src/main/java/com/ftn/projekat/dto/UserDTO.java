@@ -17,6 +17,7 @@ public class UserDTO
 	@EmailConstaint
 	private String email ;
 	
+	@PasswordConstraint
 	private String pass ;
 	
 	private String role ;

@@ -11,8 +11,13 @@ public class EmailValidator implements ConstraintValidator<EmailConstaint, Strin
 
 	@Override
 	public boolean isValid(String field, ConstraintValidatorContext context) {
-		return field != null && field.matches("^[a-zA-Z0-9.!#$%&\\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*.com$")
+		if (field == null || field.length() == 0) {
+			return true ;
+		}
+		else {
+			return field != null && field.matches("^[a-zA-Z0-9.!#$%&\\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*.com$")
 				&& (field.length() > 8) && (field.length() < 30);
+		}
 	}
 
 }

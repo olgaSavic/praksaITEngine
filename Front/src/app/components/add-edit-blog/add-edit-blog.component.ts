@@ -97,7 +97,10 @@ export class AddEditBlogComponent implements OnInit {
     this.blogService.editBlog(id, blog).subscribe(data =>
     {
       this.router.navigateByUrl('blogerPage');
-    })
+    },
+      error => {
+      alert('Incoorrect input for fields!');
+      })
   }
 
   exit()

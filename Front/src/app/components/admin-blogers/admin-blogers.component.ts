@@ -9,11 +9,11 @@ import {UserService} from "../../service/user.service";
 
   template: `
     <div style="text-align: center">
-      <p  style="color: black;font-size:40px; font-weight: bolder; font-family: 'Lucida Grande'; margin-bottom: 5%">List of blogers</p>
+      <p  style="color: black;font-size:40px; font-weight: bolder; font-family: 'Lucida Grande'; margin-bottom: 5%">List of users</p>
     </div>
 
     <div>
-      <button class="btn btn-outline-primary" style="width: 40%;margin-top: 20px; font-size: 1.5em;margin-bottom: 30px;" (click)="addBloger()">Add new bloger</button>
+      <button class="btn btn-outline-primary" style="width: 40%;margin-top: 20px; font-size: 1.5em;margin-bottom: 30px;" (click)="addBloger()">Add new user</button>
     </div>
 
     <div
@@ -24,6 +24,8 @@ import {UserService} from "../../service/user.service";
             <p style="font-size: 20px">First name: <b> {{bloger.firstName}} </b></p>
             <p style="font-size: 20px">Last name: <b> {{bloger.lastName}} </b></p>
             <p style="font-size: 20px">Email: <b> {{bloger.email}} </b></p>
+            <p style="font-size: 20px">Role: <b> {{bloger.role}} </b></p>
+
 
             <div style="margin-bottom: 20px">
 
@@ -76,7 +78,7 @@ export class AdminBlogersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getAllBlogers().subscribe(data => {
+    this.userService.getAllUsers().subscribe(data => {
       this.blogers = data;
     })
   }
